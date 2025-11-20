@@ -1,3 +1,280 @@
+select *
+from case_study2.car_sales.data
+Limit 10;
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- EXPLORATORY DATA ANALYSIS
+
+--1. Checking different states
+SELECT DISTINCT(STATE)
+FROM CASE_STUDY2.CAR_SALES.DATA
+WHERE STATE LIKE '_________________';
+
+--1.1 Checking different states
+SELECT DISTINCT(STATE)
+FROM CASE_STUDY2.CAR_SALES.DATA
+WHERE STATE NOT LIKE '_________________';
+
+--2. Checking NULL values in YEAR Column
+SELECT YEAR
+FROM CASE_STUDY2.CAR_SALES.DATA
+WHERE YEAR IS NULL;
+
+--3. Checking NULL values in MAKE Column
+SELECT MAKE
+FROM CASE_STUDY2.CAR_SALES.DATA
+WHERE MAKE IS NULL;
+
+--4. Checking NULL values in MODEL Column
+SELECT MODEL
+FROM CASE_STUDY2.CAR_SALES.DATA
+WHERE MODEL IS NULL;
+
+--5. Checking NULL values in TRIM Column
+SELECT TRIM
+FROM CASE_STUDY2.CAR_SALES.DATA
+WHERE TRIM IS NULL;
+
+--6. Checking NULL values in BODY Column
+SELECT BODY
+FROM CASE_STUDY2.CAR_SALES.DATA
+WHERE BODY IS NULL;
+
+--7. Checking NULL values in TRANSMISSION Column
+SELECT TRANSMISSION
+FROM CASE_STUDY2.CAR_SALES.DATA
+WHERE TRANSMISSION IS NULL;
+
+--8. Checking NULL values in VIN Column
+SELECT VIN
+FROM CASE_STUDY2.CAR_SALES.DATA
+WHERE VIN IS NULL;
+
+--9. Checking NULL values in CONDITION Column
+SELECT CONDITION
+FROM CASE_STUDY2.CAR_SALES.DATA
+WHERE CONDITION IS NULL;
+
+--10. Checking NULL values in ODOMETER Column
+SELECT ODOMETER
+FROM CASE_STUDY2.CAR_SALES.DATA
+WHERE ODOMETER IS NULL;
+
+--11. Checking NULL values in COLOR Column
+SELECT COLOR
+FROM CASE_STUDY2.CAR_SALES.DATA
+WHERE COLOR IS NULL;
+
+--12. Checking NULL values in INTERIOR Column
+SELECT INTERIOR
+FROM CASE_STUDY2.CAR_SALES.DATA
+WHERE INTERIOR IS NULL;
+
+--13. Checking NULL values in SELLER Column
+SELECT SELLER
+FROM CASE_STUDY2.CAR_SALES.DATA
+WHERE SELLER IS NULL;
+
+--14. Checking NULL values in MMR Column
+SELECT MMR
+FROM CASE_STUDY2.CAR_SALES.DATA
+WHERE MMR IS NULL;
+
+--15. Checking NULL values in SELLINGPRICE Column
+SELECT SELLINGPRICE
+FROM CASE_STUDY2.CAR_SALES.DATA
+WHERE SELLINGPRICE IS NULL;
+
+--16. Checking NULL values in SALESDATE Column
+SELECT SALEDATE
+FROM CASE_STUDY2.CAR_SALES.DATA
+WHERE SALEDATE IS NULL;
+
+--17 Checking Earliest Selling time
+SELECT Min(Time(to_timestamp(SALEDATE, 'DY MON DD YYYY HH24:MI:SS')))AS Time_of_sale
+FROM CASE_STUDY2.CAR_SALES.DATA
+where saledate like '___ ___ __ ____ __:__:__';
+
+--17.1 Checking Latest selling time
+SELECT MAX(Time(to_timestamp(SALEDATE, 'DY MON DD YYYY HH24:MI:SS')))AS Time_of_sale
+FROM CASE_STUDY2.CAR_SALES.DATA
+where saledate like '___ ___ __ ____ __:__:__';
+
+--18. Checking different SaleDate
+SELECT DISTINCT(SALEDATE)
+FROM CASE_STUDY2.CAR_SALES.DATA;
+
+--19. Filtering out values that are 4-digits and 5-digits in saledate column
+select saledate
+ from case_study2.car_sales.data
+ where saledate not like '____' AND SALEDATE NOT LIKE '_____';
+
+ --20. Displaying diferent values that are not in the format 'DY MON DD YYYY HH24:MI:SS' in SaleDate
+ select DISTINCT (saledate)
+ from case_study2.car_sales.data
+ where saledate NOT LIKE '___ ___ __ ____ __:__:__' ;
+
+ --20.1  Displaying values that are not in the format 'DY MON DD YYYY HH24:MI:SS' in SaleDate
+ select saledate 
+ from case_study2.car_sales.data
+ where saledate NOT LIKE '___ ___ __ ____ __:__:__' ;
+
+ 
+--21 This filter out values in saledate that are not in the format 'DY MON DD YYYY HH24:MI:SS'
+select saledate 
+ from case_study2.car_sales.data
+ where saledate  LIKE '___ ___ __ ____ __:__:__' ;
+
+--22 To change the timestamp in the saledate to a proper format
+select
+to_timestamp(saledate,'DY MON DD YYYY HH24:MI:SS') AS Sale_timestamp
+from case_study2.car_sales.data
+where saledate like '___ ___ __ ____ __:__:__';
+
+
+--23 To Extract the year from the SaleDate
+select
+extract(Year from to_timestamp(saledate,'DY MON DD YYYY HH24:MI:SS')) AS Sale_Year
+from case_study2.car_sales.data
+where saledate like '___ ___ __ ____ __:__:__';
+
+--24 To display/extract month name from the SaleDate
+select
+MONTHNAME(to_timestamp(saledate,'DY MON DD YYYY HH24:MI:SS')) AS Sale_Month
+from case_study2.car_sales.data
+where saledate like '___ ___ __ ____ __:__:__';
+
+--25 To display/extract the day name from the SaleDate
+select
+DAYNAME(to_timestamp(saledate,'DY MON DD YYYY HH24:MI:SS')) AS Sale_Month
+from case_study2.car_sales.data
+where saledate like '___ ___ __ ____ __:__:__';
+
+--25.1 Display distinct sale day
+select
+DISTINCT(DAYNAME(to_timestamp(saledate,'DY MON DD YYYY HH24:MI:SS'))) AS Sale_Month
+from case_study2.car_sales.data
+where saledate like '___ ___ __ ____ __:__:__';
+
+
+--26 To display/extract the time from SaleDate
+select
+Time(to_timestamp(saledate,'DY MON DD YYYY HH24:MI:SS')) AS Sale_Time
+from case_study2.car_sales.data
+where saledate like '___ ___ __ ____ __:__:__';
+
+
+--27. Checking different Years
+SELECT DISTINCT(YEAR)
+FROM CASE_STUDY2.CAR_SALES.DATA;
+
+--27.1 Checking the oldest year
+select MIN(year) as oldest_year
+FROM CASE_STUDY2.CAR_SALES.DATA;
+
+--27.2 Checking the recent year
+select MAX(year) as recent_year
+FROM CASE_STUDY2.CAR_SALES.DATA;
+
+
+--28. Checking different values in the MAKE Column
+SELECT DISTINCT(MAKE)
+FROM CASE_STUDY2.CAR_SALES.DATA;
+
+--29. Checking different values in the MODEL Column
+SELECT DISTINCT(MODEL)
+FROM CASE_STUDY2.CAR_SALES.DATA;
+
+--30. Checking different values in the TRIM Column
+SELECT DISTINCT(TRIM)
+FROM CASE_STUDY2.CAR_SALES.DATA;
+
+
+--31. Checking different values in the BODY Column
+SELECT DISTINCT(BODY)
+FROM CASE_STUDY2.CAR_SALES.DATA;
+
+--32. Checking different values in the TRANSMISION Column
+SELECT DISTINCT(TRANSMISSION)
+FROM CASE_STUDY2.CAR_SALES.DATA; 
+
+--32.1 Checking different values in the TRANSMISION Column where values not 'sedan' and 'Sedan'
+SELECT DISTINCT(TRANSMISSION)
+FROM CASE_STUDY2.CAR_SALES.DATA
+WHERE TRANSMISSION NOT IN ('Sedan', 'sedan');
+
+--33. Checking the different values in the VIN Column
+SELECT DISTINCT(VIN)
+FROM CASE_STUDY2.CAR_SALES.DATA;
+
+
+--33.1 Checking the values in VIN where the value is not in the right format
+SELECT DISTINCT(VIN)
+FROM CASE_STUDY2.CAR_SALES.DATA
+WHERE VIN NOT LIKE '_________________';
+
+--34. Checking different values in the CONDITION Column
+SELECT DISTINCT(CONDITION)
+FROM CASE_STUDY2.CAR_SALES.DATA;
+
+--35 Checking the highest rating in CONDITION Column
+SELECT MAX(CONDITION)
+FROM CASE_STUDY2.CAR_SALES.DATA;
+
+--36 Checking the lowest rating in CONDITION Column
+SELECT MIN(CONDITION)
+FROM CASE_STUDY2.CAR_SALES.DATA;
+
+--37 Checking different values in the ODOMETER Column
+SELECT DISTINCT(ODOMETER)
+FROM CASE_STUDY2.CAR_SALES.DATA;
+
+--38 To check lowest ODOMETER Value
+SELECT MIN(ODOMETER)
+FROM CASE_STUDY2.CAR_SALES.DATA;
+
+--39 To check highest ODOMETER Value
+SELECT MAX(ODOMETER)
+FROM CASE_STUDY2.CAR_SALES.DATA;
+
+--40 Checking different values in the MMR Column
+SELECT DISTINCT(MMR)
+FROM CASE_STUDY2.CAR_SALES.DATA;
+
+--41 To check lowest MMR Value
+SELECT MIN(MMR)
+FROM CASE_STUDY2.CAR_SALES.DATA;
+
+--42 To check highest MMR Value
+SELECT MAX(MMR)
+FROM CASE_STUDY2.CAR_SALES.DATA;
+
+--43 To check distict values in the COLOR Column 
+SELECT DISTINCT(color)
+FROM CASE_STUDY2.CAR_SALES.DATA
+WHERE  COLOR LIKE '%y' OR  COLOR LIKE'%k' 
+OR COLOR LIKE '%e' OR COLOR LIKE '%n' OR COLOR LIKE '%l' OR COLOR LIKE '%r' OR  COLOR LIKE '%w' OR COLOR LIKE 'r__' OR COLOR LIKE 'g___';  
+
+--43.1 To check distict colors of the car
+SELECT DISTINCT(color)
+FROM CASE_STUDY2.CAR_SALES.DATA
+WHERE  COLOR LIKE '%y' OR  COLOR LIKE'%k' 
+OR COLOR LIKE '%e' OR COLOR LIKE '%n' OR COLOR LIKE '%l' OR COLOR LIKE '%r' OR  COLOR LIKE '%w' OR COLOR LIKE 'r__' OR COLOR LIKE 'g___';  
+
+--44 To check different values in the INTERIOR Column
+SELECT DISTINCT(INTERIOR)
+FROM CASE_STUDY2.CAR_SALES.DATA;
+
+--44 To check different colors in the INTERIOR Column
+SELECT DISTINCT(INTERIOR)
+FROM CASE_STUDY2.CAR_SALES.DATA
+WHERE INTERIOR LIKE '%y' OR INTERIOR LIKE '%e' OR INTERIOR LIKE '%n' OR INTERIOR LIKE '%d' OR INTERIOR LIKE '%w' OR INTERIOR LIKE '%k' OR INTERIOR LIKE '%r';
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- CODE
+
+
 SELECT
 YEAR AS Manufacturing_Year,
 
